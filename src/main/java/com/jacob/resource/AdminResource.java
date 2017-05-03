@@ -29,18 +29,21 @@ import javax.ws.rs.core.Response;
 
 import com.jacob.AppConfig;
 import com.jacob.reddit.service.RedditUpdatingSchedulerService;
+import com.jacob.youtube.service.YoutubeSourceScheduleService;
 
 @Path("/task")
 public class AdminResource{
 	private RedditUpdatingSchedulerService redditUpdatingSchedulerService;
+	private YoutubeSourceScheduleService youtubeSourceScheduleService;
 	private static final String PARAM_TOKEN = "token";
 	private static final boolean ENABLE_REDDIT = false;
 	private static final boolean ENABLE_YOUTUBE = true;
 	private static boolean SCHEDULED = false;
 	
 	@Inject
-	public AdminResource(RedditUpdatingSchedulerService redditUpdatingSchedulerService) {
+	public AdminResource(RedditUpdatingSchedulerService redditUpdatingSchedulerService, YoutubeSourceScheduleService youtubeSourceScheduleService) {
 		this.redditUpdatingSchedulerService = redditUpdatingSchedulerService;
+		this.youtubeSourceScheduleService = youtubeSourceScheduleService;
 	}
 	
 	@GET
@@ -57,6 +60,7 @@ public class AdminResource{
 				builder.append("Reddit spider service is enabled; ");
 			}
 			if (ENABLE_YOUTUBE){
+				this.youtubeSourceScheduleService.scheduleJob();
 				builder.append("Youtube spider service is enabled; ");
 			}
 			SCHEDULED = true;

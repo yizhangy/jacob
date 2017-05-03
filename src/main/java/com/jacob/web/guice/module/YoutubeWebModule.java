@@ -18,14 +18,18 @@
  */
 package com.jacob.web.guice.module;
 
-import com.google.inject.servlet.ServletModule;
+import com.google.inject.AbstractModule;
+import com.jacob.youtube.service.YoutubeSourceService;
+import com.jacob.youtube.service.YoutubeSourceServiceImpl;
+import com.jacob.youtube.service.YoutubeSourceScheduleService;
+import com.jacob.youtube.service.YoutubeSourceScheduleServiceImpl;
 
-public class WebModule extends ServletModule{
-	
+public class YoutubeWebModule extends AbstractModule {
+
 	@Override
-	protected void configureServlets() {
-		install(new RedditWebModule());
-		install(new YoutubeWebModule());
+	protected void configure() {
+		//Service
+		bind(YoutubeSourceService.class).to(YoutubeSourceServiceImpl.class);
+		bind(YoutubeSourceScheduleService.class).to(YoutubeSourceScheduleServiceImpl.class);
 	}
-
 }

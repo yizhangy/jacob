@@ -16,16 +16,25 @@
  * is strictly forbidden unless prior written permission is obtained
  * from Forward Thinking Ltd.
  */
-package com.jacob.web.guice.module;
+package com.jacob.youtube.service;
 
-import com.google.inject.servlet.ServletModule;
+import java.util.TimerTask;
 
-public class WebModule extends ServletModule{
+import javax.inject.Inject;
+
+public class YoutubeSourceScheduler extends TimerTask{
+	private YoutubeSourceService youtubeSourceService;
 	
+	@Inject
+	public YoutubeSourceScheduler(YoutubeSourceService youtubeSourceService) {
+		this.youtubeSourceService = youtubeSourceService;
+	}
+
 	@Override
-	protected void configureServlets() {
-		install(new RedditWebModule());
-		install(new YoutubeWebModule());
+	public void run() {
+		youtubeSourceService.saveSource();
+		System.out.println("youtube source testing");
 	}
 
 }
+

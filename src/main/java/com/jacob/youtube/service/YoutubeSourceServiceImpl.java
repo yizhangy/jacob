@@ -16,16 +16,13 @@
  * is strictly forbidden unless prior written permission is obtained
  * from Forward Thinking Ltd.
  */
-package com.jacob.web.guice.module;
+package com.jacob.youtube.service;
 
-import com.google.inject.servlet.ServletModule;
+public class YoutubeSourceServiceImpl implements YoutubeSourceService{
 
-public class WebModule extends ServletModule{
-	
 	@Override
-	protected void configureServlets() {
-		install(new RedditWebModule());
-		install(new YoutubeWebModule());
+	public void saveSource() {
+		
 	}
 
 }

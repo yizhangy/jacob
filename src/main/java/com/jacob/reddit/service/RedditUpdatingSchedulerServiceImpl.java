@@ -22,6 +22,8 @@ import java.util.Timer;
 
 import javax.inject.Inject;
 
+import com.jacob.AppConfig;
+
 public class RedditUpdatingSchedulerServiceImpl implements RedditUpdatingSchedulerService {
 	private RedditClientService redditClientService;
 	
@@ -34,7 +36,8 @@ public class RedditUpdatingSchedulerServiceImpl implements RedditUpdatingSchedul
 	public void scheduleJob() {
 		Timer time = new Timer(); 
 		RedditUpdatingScheduler st = new RedditUpdatingScheduler(this.redditClientService);
-		time.schedule(st, 0, 2000);
+		AppConfig appConfig = AppConfig.getInstance();
+		time.schedule(st, appConfig.getSourceUpdateWaitingPeriod(), appConfig.getSourceUpdatePeriod());
 	}
 }
 

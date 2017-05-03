@@ -16,16 +16,29 @@
  * is strictly forbidden unless prior written permission is obtained
  * from Forward Thinking Ltd.
  */
-package com.jacob.web.guice.module;
+package com.jacob.youtube.service;
 
-import com.google.inject.servlet.ServletModule;
+import java.util.Timer;
 
-public class WebModule extends ServletModule{
+import javax.inject.Inject;
+
+import com.jacob.AppConfig;
+
+public class YoutubeSourceScheduleServiceImpl implements YoutubeSourceScheduleService {
+	private YoutubeSourceService clientService;
 	
+	@Inject
+	public YoutubeSourceScheduleServiceImpl(YoutubeSourceService clientService) {
+		this.clientService = clientService;
+	}
+
 	@Override
-	protected void configureServlets() {
-		install(new RedditWebModule());
-		install(new YoutubeWebModule());
+	public void scheduleJob() {
+		Timer time = new Timer(); 
+		YoutubeSourceScheduler scheduler = new YoutubeSourceScheduler(clientService);
+		AppConfig appConfig = AppConfig.getInstance();
+		time.schedule(scheduler, appConfig.getSourceUpdateWaitingPeriod(), appConfig.getSourceUpdatePeriod());
 	}
 
 }
+

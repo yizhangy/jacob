@@ -56,5 +56,18 @@ public class AppConfig {
 	public String getRedditRedirectUrl() {
 		return config.getString("reddit_redirect_url");
 	}
+	
+	public String getYoutubeApiKey() {
+		return config.getString("youtube_api_key");
+	}
+	
+	public int getSourceUpdatePeriod() {
+		return  Integer.valueOf(config.getString("source_update_period"));
+	}
+	
+	public int getSourceUpdateWaitingPeriod() {
+		return  Integer.valueOf(config.getString("source_update_waiting_period"));
+	}
+
 }
 

@@ -18,11 +18,9 @@
  */
 package com.jacob.reddit.service;
 
-import java.util.List;
 import java.util.TimerTask;
 
 import com.github.jreddit.oauth.RedditToken;
-import com.github.jreddit.parser.entity.Submission;
 
 public class RedditUpdatingScheduler extends TimerTask{
 	private RedditClientService redditClientService;
@@ -34,8 +32,8 @@ public class RedditUpdatingScheduler extends TimerTask{
 	@Override
 	public void run() {
 		RedditToken token =  redditClientService.createToken();
-		List<Submission> submissions = this.redditClientService.getSubredditSubmissions(RedditSubDir.FUNNY.getSubDirName(), token);
-		System.out.println(submissions);
+		this.redditClientService.getSubredditSubmissions(RedditSubDir.FUNNY.getSubDirName(), token);
+		//System.out.println(submissions);
 	}
 
 }
